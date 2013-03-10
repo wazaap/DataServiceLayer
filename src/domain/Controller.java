@@ -79,4 +79,8 @@ public class Controller {
 
         return dbf.deleteLine(od);
     }
+    
+    public ArrayList getAllOno(){
+        return dbf.getAllOno();
+    }
 }

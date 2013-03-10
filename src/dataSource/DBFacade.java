@@ -2,6 +2,7 @@ package dataSource;
 
 import java.sql.Connection;
 import domain.*;
+import java.util.ArrayList;
 
 // Encapsulates the Data Source Layer
 // Encapsulates connection handling 
@@ -59,6 +60,10 @@ public class DBFacade {
           
           public boolean deleteLine(OrderDetail od){
               return om.deleteLine(od, con);
+          }
+          
+          public ArrayList getAllOno(){
+              return om.getAllOrders(con);
           }
 	
 }

@@ -7,6 +7,8 @@ package presentation;
 import domain.Controller;
 import domain.Order;
 import domain.OrderDetail;
+import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
 
 /**
  *
@@ -21,24 +23,32 @@ public class DataSourceDemoFrame extends javax.swing.JFrame {
 
     public DataSourceDemoFrame() {
         initComponents();
+        jComboBoxOno.setModel(createComboModel(c.getAllOno()));
     }
-    
-    private void clearOrderFields()
-	  {
-	    jTextFieldOrderNo.setText("");
-	    jTextFieldCustomerNo.setText("");
-	    jTextFieldEmplNo.setText("");
-	    jTextFieldProductNo.setText("");
-	    jTextFieldQuantity.setText("");
-	    jTextAreaOrderDetails.setText("");
-	    jLabelStatus.setText("");
-	  }
-	  private void clearOrderDetailFields()
-	  {
-	    jTextFieldProductNo.setText("");
-	    jTextFieldQuantity.setText(""); 
-	    jLabelStatus.setText("");
-	  }
+
+    public DefaultComboBoxModel createComboModel(ArrayList list) {
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+        for (int i = 0; i < list.size(); i++) {
+            model.addElement(list.get(i));
+        }
+        return model;
+    }
+
+    private void clearOrderFields() {
+        jTextFieldOrderNo.setText("");
+        jTextFieldCustomerNo.setText("");
+        jTextFieldEmplNo.setText("");
+        jTextFieldProductNo.setText("");
+        jTextFieldQuantity.setText("");
+        jTextAreaOrderDetails.setText("");
+        jLabelStatus.setText("");
+    }
+
+    private void clearOrderDetailFields() {
+        jTextFieldProductNo.setText("");
+        jTextFieldQuantity.setText("");
+        jLabelStatus.setText("");
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -70,6 +80,7 @@ public class DataSourceDemoFrame extends javax.swing.JFrame {
         jButtonDeleteOrder = new javax.swing.JButton();
         jButtonUpdateQty = new javax.swing.JButton();
         jButtonDeleteProduct = new javax.swing.JButton();
+        jComboBoxOno = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -144,6 +155,13 @@ public class DataSourceDemoFrame extends javax.swing.JFrame {
             }
         });
 
+        jComboBoxOno.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxOno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxOnoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -160,7 +178,9 @@ public class DataSourceDemoFrame extends javax.swing.JFrame {
                             .addGap(22, 22, 22)
                             .addComponent(jLabelOrderNo, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
-                            .addComponent(jTextFieldOrderNo, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jTextFieldOrderNo, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
+                                .addComponent(jComboBoxOno, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGap(99, 99, 99)
                             .addComponent(jButtonGetOrder))
                         .addGroup(layout.createSequentialGroup()
@@ -198,24 +218,27 @@ public class DataSourceDemoFrame extends javax.swing.JFrame {
                             .addGap(57, 57, 57)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jButtonDeleteProduct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jButtonNewOrderdetail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButtonUpdateQty, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                .addComponent(jButtonNewOrderdetail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButtonUpdateQty, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addGap(44, 44, 44))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
-                        .addComponent(jLabelOrderNo))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(jTextFieldOrderNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButtonGetOrder))
-                .addGap(18, 18, 18)
+                        .addGap(15, 15, 15)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(4, 4, 4)
+                                .addComponent(jLabelOrderNo))
+                            .addComponent(jButtonGetOrder))
+                        .addGap(18, 18, 18))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jComboBoxOno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTextFieldOrderNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(4, 4, 4)
@@ -289,32 +312,31 @@ public class DataSourceDemoFrame extends javax.swing.JFrame {
 
     private void jButtonNewOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNewOrderActionPerformed
         int cno = Integer.parseInt(jTextFieldCustomerNo.getText());
-				    int eno = Integer.parseInt(jTextFieldEmplNo.getText());
-				    clearOrderFields();
-				    Order o = c.createNewOrder(cno, eno, null, null);
-				    if (o != null)
-				    {
-				      jTextFieldOrderNo.setText(o.getOno() + "");
-				      jTextFieldCustomerNo.setText(o.getCustomerNo() + "");
-				      jTextFieldEmplNo.setText(o.getEmployeeNo() + "");
-				      jLabelStatus.setText("New order created");
-				    }
-				    else
-				      jLabelStatus.setText("No order created!");
+        int eno = Integer.parseInt(jTextFieldEmplNo.getText());
+        clearOrderFields();
+        Order o = c.createNewOrder(cno, eno, null, null);
+        if (o != null) {
+            jTextFieldOrderNo.setText(o.getOno() + "");
+            jTextFieldCustomerNo.setText(o.getCustomerNo() + "");
+            jTextFieldEmplNo.setText(o.getEmployeeNo() + "");
+            jLabelStatus.setText("New order created");
+        } else {
+            jLabelStatus.setText("No order created!");
+        }
+        jComboBoxOno.setModel(createComboModel(c.getAllOno()));
     }//GEN-LAST:event_jButtonNewOrderActionPerformed
 
     private void jButtonNewOrderdetailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNewOrderdetailActionPerformed
-        	int partNo   = Integer.parseInt(jTextFieldProductNo.getText());
-				    int quantity = Integer.parseInt(jTextFieldQuantity.getText());
-				    clearOrderDetailFields();
-				    boolean status = c.addOrderDetail(partNo, quantity);
-				    if (status)
-				    {
-				      jTextAreaOrderDetails.setText(c.getOrderDetailsToString() + "");
-				      jLabelStatus.setText("Order detail inserted");
-				    }
-				    else
-				      jLabelStatus.setText("Order detail not inserted");
+        int partNo = Integer.parseInt(jTextFieldProductNo.getText());
+        int quantity = Integer.parseInt(jTextFieldQuantity.getText());
+        clearOrderDetailFields();
+        boolean status = c.addOrderDetail(partNo, quantity);
+        if (status) {
+            jTextAreaOrderDetails.setText(c.getOrderDetailsToString() + "");
+            jLabelStatus.setText("Order detail inserted");
+        } else {
+            jLabelStatus.setText("Order detail not inserted");
+        }
     }//GEN-LAST:event_jButtonNewOrderdetailActionPerformed
 
     private void jButtonUpdateOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateOrderActionPerformed
@@ -346,6 +368,20 @@ public class DataSourceDemoFrame extends javax.swing.JFrame {
         OrderDetail od = new OrderDetail(ono, pno, qty);
         c.deleteLine(od);
     }//GEN-LAST:event_jButtonDeleteProductActionPerformed
+
+    private void jComboBoxOnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxOnoActionPerformed
+        
+        int ono = (int) jComboBoxOno.getSelectedItem();
+        Order o = c.getOrder(ono);
+        if (o != null) {
+            jTextFieldOrderNo.setText(o.getOno() + "");
+            jTextFieldCustomerNo.setText(o.getCustomerNo() + "");
+            jTextFieldEmplNo.setText(o.getEmployeeNo() + "");
+            jTextAreaOrderDetails.setText(c.getOrderDetailsToString() + "");
+        } else {
+            jLabelStatus.setText("No matching order!");
+        }
+    }//GEN-LAST:event_jComboBoxOnoActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -378,7 +414,6 @@ public class DataSourceDemoFrame extends javax.swing.JFrame {
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -394,6 +429,7 @@ public class DataSourceDemoFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButtonNewOrderdetail;
     private javax.swing.JButton jButtonUpdateOrder;
     private javax.swing.JButton jButtonUpdateQty;
+    private javax.swing.JComboBox jComboBoxOno;
     private javax.swing.JLabel jLabelCustomerNo;
     private javax.swing.JLabel jLabelEmployeeNo;
     private javax.swing.JLabel jLabelOrderDetails;
