@@ -117,13 +117,18 @@ public class Order
             ver == o.getVer()); 
   }
   
-  public void updateDetail (int pno, int qty){
-      for (int i = 0; i< orderDetails.size(); i++)
+  public boolean updateDetail (int pno, int qty){
+      boolean result = false; 
+      for (int i = 0; i < orderDetails.size(); i++)
       {
           if (orderDetails.get(i).getPno() == pno){
               orderDetails.get(i).setQty(qty);
+              result = true;
+          } else {
+              result = false;
           }
       }
+      return result;
   }
 }
 

@@ -159,27 +159,69 @@ public class OrderMapper {
     }
 
     public boolean deleteOrder(ArrayList<Order> ol, Connection conn) throws SQLException {
-        boolean status;
         int rowsUpdated = 0;
-        int olSize = ol.size();
-        String sql1 = "DELETE FROM v_odetails WHERE ono = ?";
-        String sql2 = "DELETE FROM v_orders WHERE ono = ? AND ver = ?";
-        PreparedStatement statement1;
-        PreparedStatement statement2;
+        if (ol.size() == 0) {
+            return true;
+        } else {
+            String sql1 = "DELETE FROM v_odetails WHERE ono = ?";
+            String sql2 = "DELETE FROM v_orders WHERE ono = ? AND ver = ?";
+            PreparedStatement statement1;
+            PreparedStatement statement2;
+
+            //Prepares first statement to delete order details.
+            statement1 = conn.prepareStatement(sql1);
+            statement1.setInt(1, ol.get(0).getOno());
+            statement1.executeUpdate();
+
+            //Prepares second statement to delete the order.
+            statement2 = conn.prepareStatement(sql2);
+            statement2.setInt(1, ol.get(0).getOno());
+            statement2.setInt(2, ol.get(0).getVer());
+            rowsUpdated += statement2.executeUpdate();
+            return rowsUpdated == 1;
+        }
+    }
+
+    public boolean updateOrderDetail(ArrayList<OrderDetail> odl, Connection conn) throws SQLException {
+        int rowsUpdated = 0;
+        if (odl.size() == 0) {
+            return true;
+        } else {
+            String sql = "UPDATE v_odetails SET qty = ? WHERE ono = ? AND pno = ?";
+            PreparedStatement statement;
+            
+            //Prepares first statement to update order details.
+            statement = conn.prepareStatement(sql);
+            statement.setInt(1, odl.get(0).getQty());
+            statement.setInt(2, odl.get(0).getOno());
+            statement.setInt(3, odl.get(0).getPno());
+            rowsUpdated = statement.executeUpdate();
+            return rowsUpdated == 1;
+        }
+
+    }
+/**
+ * 
+ * @param odl
+ * @param conn
+ * @return
+ * @throws SQLException 
+ */
+    public boolean deleteOrderDetail(ArrayList<OrderDetail> odl, Connection conn) throws SQLException {
+        int rowsUpdated = 0;
+        if (odl.size() == 0) {
+            return true;
+        } else {
+            String sql = "DELETE FROM v_odetails WHERE ono = ? AND pno = ?";
+            PreparedStatement statement = null;
+            
+            //Prepares the statement to delete a orderdetail
+            statement = conn.prepareStatement(sql);
+            statement.setInt(1, odl.get(0).getOno());
+            statement.setInt(2, odl.get(0).getPno());
+            rowsUpdated = statement.executeUpdate();
+            return rowsUpdated == 1;
+        }
         
-
-        //Prepares first statement to delete order details.
-        statement1 = conn.prepareStatement(sql1);
-        statement1.setInt(1, ol.get(0).getOno());
-        statement1.executeUpdate();
-
-        //Prepares second statement to delete the order.
-        statement2 = conn.prepareStatement(sql2);
-        statement2.setInt(1, ol.get(0).getOno());
-        statement2.setInt(2, ol.get(0).getVer());
-        rowsUpdated += statement2.executeUpdate();
-
-        return rowsUpdated == 1;
-
     }
 }

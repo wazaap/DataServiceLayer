@@ -116,9 +116,21 @@ public class Controller {
     public boolean updateOrderDetail(int pno, int qty) {
         boolean status = false;
         if (processingOrder) {
-            currentOrder.updateDetail(pno, qty);
+            OrderDetail od = new OrderDetail(currentOrder.getOno(), pno, qty);
+            dbFacade.registerUpdateOrderDetail(od);
+            status = dbFacade.commitBusinessTransaction();
         }
         return status;
 
+    }
+    
+    public boolean deleteOrderDetail (int pno){
+       boolean status = false;
+       if (processingOrder) {
+           OrderDetail od = new OrderDetail (currentOrder.getOno(), pno, 0);
+           dbFacade.registerDeleteOrderDetail(od);
+           status = dbFacade.commitBusinessTransaction();
+       }
+       return status;
     }
 }

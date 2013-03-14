@@ -59,7 +59,8 @@ public class TransactionDemoFrame extends javax.swing.JFrame {
         jTextAreaOrderDetailsDisplay = new javax.swing.JTextArea();
         jLabel7 = new javax.swing.JLabel();
         jButtonDeleteOrder = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        jButtonEditDetail = new javax.swing.JButton();
+        jButtonDeleteDetail = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -148,10 +149,17 @@ public class TransactionDemoFrame extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonEditDetail.setText("Edit Detail");
+        jButtonEditDetail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonEditDetailActionPerformed(evt);
+            }
+        });
+
+        jButtonDeleteDetail.setText("Delete Detail");
+        jButtonDeleteDetail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDeleteDetailActionPerformed(evt);
             }
         });
 
@@ -199,7 +207,8 @@ public class TransactionDemoFrame extends javax.swing.JFrame {
                                     .addComponent(jButtonChangeCustNo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jButtonAddOrderDetail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jButtonGetOrder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(jButtonEditDetail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButtonDeleteDetail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jButtonNewOrder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -239,12 +248,15 @@ public class TransactionDemoFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButtonDeleteDetail)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldProductNo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
-                    .addComponent(jButton1))
+                    .addComponent(jButtonEditDetail))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -357,9 +369,10 @@ public class TransactionDemoFrame extends javax.swing.JFrame {
         } else {
             jLabelStatusDisplay.setText("Order was deleted");
         }
+        clearOrderDetailFields();
     }//GEN-LAST:event_jButtonDeleteOrderActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonEditDetailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditDetailActionPerformed
         try {
             int pno = Integer.parseInt(jTextFieldProductNo.getText());
             int qty = Integer.parseInt(jTextFieldQuantity.getText());
@@ -368,7 +381,19 @@ public class TransactionDemoFrame extends javax.swing.JFrame {
             jLabelStatusDisplay.setText("Please enter a number");
             System.out.println(e);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+        updateOrderDetailArea();
+    }//GEN-LAST:event_jButtonEditDetailActionPerformed
+
+    private void jButtonDeleteDetailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteDetailActionPerformed
+        try {
+            int pno = Integer.parseInt(jTextFieldProductNo.getText());
+            c.deleteOrderDetail(pno);
+        } catch (IllegalArgumentException e) {
+            jLabelStatusDisplay.setText("Please enter a number");
+            System.out.println(e);
+        }
+        updateOrderDetailArea();
+    }//GEN-LAST:event_jButtonDeleteDetailActionPerformed
 
     private void clearOrderFields() {
         jTextFieldOrderNo.setText("");
@@ -384,6 +409,11 @@ public class TransactionDemoFrame extends javax.swing.JFrame {
         jTextAreaOrderDetailsDisplay.setText("");
         jTextFieldProductNo.setText("");
         jTextFieldQuantity.setText("");
+    }
+    private void updateOrderDetailArea() {
+        jTextFieldProductNo.setText("");
+        jTextFieldQuantity.setText("");
+        jTextAreaOrderDetailsDisplay.setText(c.getOrderDetailsToString());
     }
 
     /**
@@ -429,11 +459,12 @@ public class TransactionDemoFrame extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonAddOrderDetail;
     private javax.swing.JButton jButtonChangeCustNo;
     private javax.swing.JButton jButtonChangeEmplNo;
+    private javax.swing.JButton jButtonDeleteDetail;
     private javax.swing.JButton jButtonDeleteOrder;
+    private javax.swing.JButton jButtonEditDetail;
     private javax.swing.JButton jButtonGetOrder;
     private javax.swing.JButton jButtonNewOrder;
     private javax.swing.JButton jButtonReset;

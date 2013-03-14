@@ -75,6 +75,18 @@ public class DBFacade {
             uow.registerDeleteOrder(o);
         }
     }
+    
+    public void registerUpdateOrderDetail (OrderDetail od){
+        if (uow != null){
+            uow.registerUpdateOrderDetail(od);
+        } 
+    }
+    
+    public void registerDeleteOrderDetail (OrderDetail od) {
+        if (uow != null){
+            uow.registerDeleteOrderDetail(od);
+        }
+    }
 
     //=== Methods to handle business transactions
     //=====	Ignore changes after last commit
