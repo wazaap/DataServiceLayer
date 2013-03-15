@@ -117,6 +117,10 @@ public class Controller {
         boolean status = false;
         if (processingOrder) {
             OrderDetail od = new OrderDetail(currentOrder.getOno(), pno, qty);
+            dbFacade.registerDirtyOrder(currentOrder);
+            
+
+            
             dbFacade.registerUpdateOrderDetail(od);
             status = dbFacade.commitBusinessTransaction();
         }

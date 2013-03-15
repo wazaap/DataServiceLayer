@@ -87,6 +87,8 @@ public class Order
   {
     return "  Ono: " + ono + 
            "  Cno: " + cno + 
+           "  Cno: " + received + 
+           "  Cno: " + shipped + 
            "  Eno: " + eno;
   }
 
