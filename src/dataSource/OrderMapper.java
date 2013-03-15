@@ -26,8 +26,8 @@ public class OrderMapper {
             statement.setInt(1, o.getOno());
             statement.setInt(2, o.getCno());
             statement.setInt(3, o.getEno());
-            statement.setString(4, o.getReceived());
-            statement.setString(5, o.getShipped());
+            statement.setDate(4, o.getReceived());
+            statement.setDate(5, o.getShipped());
             statement.setInt(6, o.getVer());
             rowsInserted += statement.executeUpdate();
         }
@@ -52,8 +52,8 @@ public class OrderMapper {
             Order o = ol.get(i);
             statement.setInt(1, o.getCno());
             statement.setInt(2, o.getEno());
-            statement.setString(3, o.getReceived().substring(0, 10));
-            statement.setString(4, o.getShipped().substring(0, 10));
+            statement.setDate(3, o.getReceived());
+            statement.setDate(4, o.getShipped());
             statement.setInt(5, o.getVer() + 1); // next version number
             statement.setInt(6, o.getOno());
             statement.setInt(7, o.getVer());   // old version number
@@ -115,8 +115,8 @@ public class OrderMapper {
                 o = new Order(ono,
                         rs.getInt(2),
                         rs.getInt(3),
-                        rs.getString(4),
-                        rs.getString(5),
+                        rs.getDate(4),
+                        rs.getDate(5),
                         rs.getInt(6));
             }
 

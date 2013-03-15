@@ -1,6 +1,7 @@
 package domain;
 
 import dataSource.DBFacade;
+import java.sql.Date;
 
 //===	facade to the Domain Layer
 //	defines the state of the business transaction
@@ -31,7 +32,7 @@ public class Controller {
         return currentOrder;
     }
 
-    public Order createNewOrder(int cno, int eno, String rec, String ship) {
+    public Order createNewOrder(int cno, int eno, Date rec, Date ship) {
         if (processingOrder) {
             return null;
         }

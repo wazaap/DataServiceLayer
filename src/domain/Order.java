@@ -1,5 +1,6 @@
 package domain;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 //======= 2010/hau
@@ -9,12 +10,12 @@ public class Order
   private int ono;
   private int cno;
   private int eno;
-  private String received;
-  private String shipped;
+  private Date received;
+  private Date shipped;
   private int ver;
   private ArrayList<OrderDetail> orderDetails;
 
-  public Order(int o, int c, int e, String r, String s, int v)
+  public Order(int o, int c, int e, Date r, Date s, int v)
   {
     ono = o;
     cno = c;
@@ -55,22 +56,22 @@ public class Order
     return eno;
   }
 
-  public void setReceived(String received)
+  public void setReceived(Date received)
   {
     this.received = received;
   }
 
-  public String getReceived()
+  public Date getReceived()
   {
     return received;
   }
 
-  public void setShipped(String shipped)
+  public void setShipped(Date shipped)
   {
     this.shipped = shipped;
   }
 
-  public String getShipped()
+  public Date getShipped()
   {
     return shipped;
   }
